@@ -180,11 +180,9 @@ func (eqc *Client) RaidDump() (raidData []byte, err error) {
 			filename := eqc.Config.EverQuestDirectory() + "\\" + parts[1]
 			time.Sleep(250 * time.Millisecond) // let EQ close the file.
 			raidData, err = ioutil.ReadFile(filename)
-			if err != nil {
+			if err == nil {
 				os.Remove(filename)
-				return
 			}
-
 			return
 		case <-time.After(10 * time.Millisecond):
 			break

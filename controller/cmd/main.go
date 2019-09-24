@@ -78,6 +78,7 @@ func main() {
 			bot.RegisterDKPCommands(dc, eqc, gp)
 			bot.RegisterAuctionCommand(eqc, dc, gp)
 			bot.RegisterSayCommands(eqc, dc)
+			bot.StartPeriodicRaidDumps(eqc, dc)
 			log.Println("Initialization completed")
 			log.Println("------------------------------")
 			<-ctx.Done()

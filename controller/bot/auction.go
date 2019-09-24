@@ -101,7 +101,7 @@ func RegisterAuctionCommand(eqc *everquest.Client, dc *discord.Client, gp *plugi
 			return
 		}
 		raidDump, err := eqc.RaidDump()
-		if err == nil {
+		if err == nil && len(raidDump)!=0 {
 			logOnError(dc.Upload("raiddump.txt", raidDump))
 		}
 		resultChan := make(chan *allBids)
@@ -140,7 +140,7 @@ func RegisterAuctionCommand(eqc *everquest.Client, dc *discord.Client, gp *plugi
 					numRE := numRE.FindStringSubmatch(tellMsg)
 					if numRE == nil {
 						go func() {
-							logOnError(eqc.Tellf(teller, "You told me \"%v\", and I can't make any sense of that as a bid.", tellMsg))
+							logOnError(eqc.Tellf(teller, "You told me '%v', and I can't make any sense of that as a bid.", tellMsg))
 							logOnError(eqc.Tellf(teller, "Please send me your bid as a number, or 0 to cancel a previous bid."))
 						}()
 						continue
